@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastebin by Dhanraj</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<style>
+    body{
+        padding: 10px;
+        background-color: black;
+    }
+    .header > h4{
+        color: white;
+        text-align: center;
+
+    }
+    .container{
+        align-items: center;
+        width: 150vh;
+        text-align: center;
+        justify-content: center;
+    }
+    .side-input{
+        display: flex;
+        width: 100%;
+        margin: auto;
+        padding-left: 5px;
+        justify-content: center;
+    }
+    #copy{
+        margin: 20px auto 5px auto;
+        background-color: black;
+        border: 1px solid rgb(0, 255, 0);
+        border-radius: 0px;
+        color: rgb(0, 255, 0);
+    }
+    #create-new{
+        margin: 20px auto 5px auto;
+        background-color: black;
+        border: 1px solid rgb(229, 255, 0);
+        border-radius: 0px;
+        color: rgb(229, 255, 0);
+    }
+    .form-control{
+        background-color: black;
+        color: white;
+        margin: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 0px;
+    }
+    textarea {
+        scrollbar-color: white black;
+        resize: none;
+        scrollbar-width: thin;
+        width: 100%;
+    }
+    .form-control:disabled, .form-control:focus{
+        background-color: black;
+        color: white;
+        border: 1px solid blue !important;
+        border-radius: 0px;
+    }
+    .created{
+        display: flex;
+        justify-content: right;
+        color: white;
+    }
+    </style>
+<body>
+    <div class="header">
+        <h4>Welcome to pastebin by Dhanraj Chaurasia</h4>
+    </div>
+    <div class="container">
+        <button class="btn btn-primary" id="copy">Copy Paste</button>
+        <a href="/"><button class="btn btn-primary" id="create-new">Create a new paste</button></a>
+        <p class="created">created on {{paste.created_at}}</p>
+        <div class="form-group side-input">
+            <input type="text" class="form-control" value="{{paste.title}}" disabled>
+            <input type="text" class="form-control" value="{{paste.author}}" disabled>
+            <input type="text" class="form-control" value="{{paste.description}}" disabled>
+        </div>
+        <textarea type="text" id="paste-text" class="form-control" disabled rows="20">{{paste.text}}</textarea>
+    </div>
+    <div class="footer">
+
+    </div>
+    <script>
+        const btn = document.getElementById("copy");
+        btn.addEventListener("click", function(){
+            const paste = document.getElementById("paste-text");
+            paste.select();
+            try {
+                navigator.clipboard.writeText(paste.value)
+                    .then(function() {
+                        console.log("Text copied to clipboard!");
+                    })
+                    .catch(function(err) {
+                        console.error('Unable to copy text: ', err);
+                    });
+            } catch (err) {
+                console.error('Unable to copy text: ', err);
+            }
+        });
+    </script>
+</body>
+</html>
